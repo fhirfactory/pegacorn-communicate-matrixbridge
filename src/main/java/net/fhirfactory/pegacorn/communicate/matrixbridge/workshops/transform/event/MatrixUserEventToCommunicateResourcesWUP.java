@@ -22,7 +22,7 @@
 package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event;
 
 import net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event.common.MatrixBridgeActivityWUPBase;
-import net.fhirfactory.pegacorn.components.dataparcel.DataParcelManifest;
+import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,5 +53,10 @@ public class MatrixUserEventToCommunicateResourcesWUP extends MatrixBridgeActivi
     @Override
     public void configure() throws Exception {
 
+    }
+
+    @Override
+    protected List<DataParcelManifest> declarePublishedTopics() {
+        return null;
     }
 }

@@ -21,7 +21,8 @@
  */
 package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event.common;
 
-import net.fhirfactory.pegacorn.components.interfaces.topology.WorkshopInterface;
+
+import net.fhirfactory.pegacorn.core.interfaces.topology.WorkshopInterface;
 import net.fhirfactory.pegacorn.workshops.TransformWorkshop;
 import net.fhirfactory.pegacorn.wups.archetypes.petasosenabled.messageprocessingbased.MOAStandardWUP;
 

@@ -23,11 +23,14 @@ package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.interact;
 
 import net.fhirfactory.pegacorn.communicate.matrixbridge.common.CommunicateMatrixBridgeNames;
 import net.fhirfactory.pegacorn.communicate.matrix.interact.receiver.MatrixApplicationServicesEventsReceiverWUP;
+import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 @ApplicationScoped
 public class RoomServerEventsReceiverWUP extends MatrixApplicationServicesEventsReceiverWUP {
@@ -56,4 +59,8 @@ public class RoomServerEventsReceiverWUP extends MatrixApplicationServicesEvents
         return (LOG);
     }
 
+    @Override
+    protected List<DataParcelManifest> declarePublishedTopics() {
+        return (new ArrayList<>());
+    }
 }

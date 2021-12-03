@@ -23,11 +23,14 @@ package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.interact;
 
 import net.fhirfactory.pegacorn.communicate.matrixbridge.common.CommunicateMatrixBridgeNames;
 import net.fhirfactory.pegacorn.communicate.synapse.interact.SynapseAPIProxyWUP;
+import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 @ApplicationScoped
 public class RoomServerSynapseActionsWUP extends SynapseAPIProxyWUP{
@@ -58,4 +61,8 @@ public class RoomServerSynapseActionsWUP extends SynapseAPIProxyWUP{
         return (names.getInteractEgressSynapseAPIName());
     }
 
+    @Override
+    protected List<DataParcelManifest> declarePublishedTopics() {
+        return (new ArrayList<>());
+    }
 }
