@@ -19,10 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.interact;
+package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.matrixbridge;
 
-import net.fhirfactory.pegacorn.communicate.matrixbridge.common.CommunicateMatrixBridgeNames;
-import net.fhirfactory.pegacorn.communicate.matrix.interact.receiver.MatrixApplicationServicesEventsReceiverWUP;
+import net.fhirfactory.pegacorn.communicate.matrixbridge.common.MatrixBridgeNames;
+import net.fhirfactory.pegacorn.communicate.matrix.issi.receiver.MatrixApplicationServicesEventsReceiverWUP;
 import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,16 +37,11 @@ public class RoomServerEventsReceiverWUP extends MatrixApplicationServicesEvents
     private static final Logger LOG = LoggerFactory.getLogger(RoomServerEventsReceiverWUP.class);
 
     @Inject
-    private CommunicateMatrixBridgeNames names;
+    private MatrixBridgeNames names;
 
     @Override
     protected String specifyIngresTopologyEndpointName() {
-        return(names.getInteractIngressApplicationServices());
-    }
-
-    @Override
-    public String specifyWUPInstanceName() {
-        return(getClass().getCanonicalName());
+        return(names.getInteractIngressMatrixEventsName());
     }
 
     @Override
@@ -62,5 +57,15 @@ public class RoomServerEventsReceiverWUP extends MatrixApplicationServicesEvents
     @Override
     protected List<DataParcelManifest> declarePublishedTopics() {
         return (new ArrayList<>());
+    }
+
+    @Override
+    protected String specifyWUPInstanceName() {
+        return (getClass().getSimpleName());
+    }
+
+    @Override
+    protected String specifyEndpointParticipantName() {
+        return (getClass().getSimpleName());
     }
 }

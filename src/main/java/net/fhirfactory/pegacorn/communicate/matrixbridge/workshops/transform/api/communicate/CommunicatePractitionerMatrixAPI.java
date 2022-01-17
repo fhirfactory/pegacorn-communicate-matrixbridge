@@ -19,16 +19,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.communicate.matrixbridge.common;
+package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.api.communicate;
+
+import net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.beans.CommunicatePractitionerMatrixMapper;
+import net.fhirfactory.pegacorn.internals.communicate.entities.practitioner.CommunicatePractitioner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 @ApplicationScoped
-public class CommunicateMatrixBridgeNames {
+public class CommunicatePractitionerMatrixAPI {
+    private static final Logger LOG = LoggerFactory.getLogger(CommunicatePractitionerMatrixAPI.class);
 
-    public String getInteractEgressApplicationServicesClientServerAPIName(){
-        return("matrix-as-cs");
+    @Inject
+    private CommunicatePractitionerMatrixMapper practitionerMapper;
+
+    public CommunicatePractitioner installCommunicatePractitioner(CommunicatePractitioner communicatePractitioner){
+
+        return(communicatePractitioner);
     }
-    public String getInteractEgressSynapseAPIName(){return("synapse-api");}
-    public String getInteractIngressApplicationServices(){return("matrix-as");}
+
+    public CommunicatePractitioner removeCommunicatePractitioner(CommunicatePractitioner communicatePractitioner){
+
+        return(communicatePractitioner);
+    }
+
+    public CommunicatePractitioner updateCommunicatePractitioner(CommunicatePractitioner communicatePractitioner){
+
+        return(communicatePractitioner);
+    }
 }

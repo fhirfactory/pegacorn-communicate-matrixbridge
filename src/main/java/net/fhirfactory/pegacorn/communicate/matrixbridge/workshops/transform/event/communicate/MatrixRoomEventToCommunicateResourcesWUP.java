@@ -19,35 +19,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.api;
+package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event.communicate;
 
-import net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.beans.CommunicatePractitionerRoleMatrixMapper;
-import net.fhirfactory.pegacorn.internals.communicate.entities.practitionerrole.CommunicatePractitionerRole;
+import net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event.common.MatrixBridgeActivityWUPBase;
+import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 @ApplicationScoped
-public class CommunicatePractitionerRoleMatrixAPI {
-    private static final Logger LOG = LoggerFactory.getLogger(CommunicatePractitionerRoleMatrixAPI.class);
+public class MatrixRoomEventToCommunicateResourcesWUP extends MatrixBridgeActivityWUPBase {
+    private static final Logger LOG = LoggerFactory.getLogger(MatrixRoomEventToCommunicateResourcesWUP.class);
 
-    @Inject
-    private CommunicatePractitionerRoleMatrixMapper practitionerMapper;
+    private static String WUP_VERSION = "1.0.0";
 
-    public CommunicatePractitionerRole installCommunicatePractitionerRole(CommunicatePractitionerRole communicatePractitionerRole){
-
-        return(communicatePractitionerRole);
+    @Override
+    protected Logger specifyLogger() {
+        return (LOG);
     }
 
-    public CommunicatePractitionerRole removeCommunicatePractitionerRole(CommunicatePractitionerRole communicatePractitionerRole){
+    @Override
+    protected List<DataParcelManifest> specifySubscriptionTopics() {
+        getLogger().debug(".specifySubscriptionTopics(): Entry");
 
-        return(communicatePractitionerRole);
+        List<DataParcelManifest> subscriptionList = new ArrayList<>();
+
+        getLogger().debug(".specifySubscriptionTopics(): Exit");
+        return(subscriptionList);
     }
 
-    public CommunicatePractitionerRole updateCommunicatePractitionerRole(CommunicatePractitionerRole communicatePractitionerRole){
+    @Override
+    protected String specifyWUPInstanceVersion() {
+        return (WUP_VERSION);
+    }
 
-        return(communicatePractitionerRole);
+    @Override
+    public void configure() throws Exception {
+
+    }
+
+    @Override
+    protected List<DataParcelManifest> declarePublishedTopics() {
+        return (new ArrayList<>());
     }
 }

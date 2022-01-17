@@ -19,30 +19,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event;
+package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.matrixbridge;
 
-import net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event.common.MatrixBridgeActivityWUPBase;
+import net.fhirfactory.pegacorn.communicate.matrixbridge.common.MatrixBridgeNames;
+import net.fhirfactory.pegacorn.communicate.matrix.issi.forwarder.MatrixClientServerEventForwarderWUP;
 import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
-public class MatrixUserEventToCommunicateResourcesWUP extends MatrixBridgeActivityWUPBase {
-    private static final Logger LOG = LoggerFactory.getLogger(MatrixUserEventToCommunicateResourcesWUP.class);
+public class RoomServerMatrixActionsWUP extends MatrixClientServerEventForwarderWUP {
+    private static final Logger LOG = LoggerFactory.getLogger(MatrixClientServerEventForwarderWUP.class);
 
-    private static String WUP_VERSION = "1.0.0";
+    private static String WUP_VERSION="1.0.0";
 
-    @Override
-    protected Logger specifyLogger() {
-        return (LOG);
-    }
+    @Inject
+    private MatrixBridgeNames names;
 
     @Override
-    protected List<DataParcelManifest> specifySubscriptionTopics() {
-        return null;
+    protected String specifyWUPInstanceName() {
+        return (getClass().getSimpleName());
     }
 
     @Override
@@ -51,12 +52,22 @@ public class MatrixUserEventToCommunicateResourcesWUP extends MatrixBridgeActivi
     }
 
     @Override
-    public void configure() throws Exception {
+    protected Logger specifyLogger() {
+        return (LOG);
+    }
 
+    @Override
+    protected String specifyEgressTopologyEndpointName() {
+        return (names.getInteractEgressMatrixEventsName());
     }
 
     @Override
     protected List<DataParcelManifest> declarePublishedTopics() {
-        return null;
+        return (new ArrayList<>());
+    }
+
+    @Override
+    protected String specifyEndpointParticipantName() {
+        return ("MatrixActionsAPIClient");
     }
 }

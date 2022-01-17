@@ -19,10 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.interact;
+package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.matrixbridge;
 
-import net.fhirfactory.pegacorn.communicate.matrixbridge.common.CommunicateMatrixBridgeNames;
-import net.fhirfactory.pegacorn.communicate.matrix.interact.query.MatrixClientServerAPIProxyWUP;
+import net.fhirfactory.pegacorn.communicate.matrixbridge.common.MatrixBridgeNames;
+import net.fhirfactory.pegacorn.communicate.synapse.issi.SynapseAPIProxyWUP;
 import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,22 +33,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
-public class RoomServerMatrixQueryWUP extends MatrixClientServerAPIProxyWUP {
-    private static final Logger LOG = LoggerFactory.getLogger(RoomServerMatrixQueryWUP.class);
+public class RoomServerSynapseActionsWUP extends SynapseAPIProxyWUP{
+    private static final Logger LOG = LoggerFactory.getLogger(RoomServerSynapseActionsWUP.class);
 
     private static String WUP_VERSION="1.0.0";
 
     @Inject
-    private CommunicateMatrixBridgeNames names;
+    private MatrixBridgeNames names;
 
     @Override
     protected Logger specifyLogger() {
         return (LOG);
-    }
-
-    @Override
-    protected String specifyWUPInstanceName() {
-        return (getClass().getSimpleName());
     }
 
     @Override
@@ -57,8 +52,13 @@ public class RoomServerMatrixQueryWUP extends MatrixClientServerAPIProxyWUP {
     }
 
     @Override
+    protected String specifyWUPInstanceName() {
+        return (getClass().getSimpleName());
+    }
+
+    @Override
     protected String specifyEgressTopologyEndpointName() {
-        return (names.getInteractEgressApplicationServicesClientServerAPIName());
+        return (names.getInteractEgressSynapseActionsName());
     }
 
     @Override

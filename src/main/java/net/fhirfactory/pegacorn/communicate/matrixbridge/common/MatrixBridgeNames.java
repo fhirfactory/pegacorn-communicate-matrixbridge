@@ -19,17 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.beans;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package net.fhirfactory.pegacorn.communicate.matrixbridge.common;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class CommunicatePractitionerRoleMatrixMapper {
-    private static final Logger LOG = LoggerFactory.getLogger(CommunicatePractitionerRoleMatrixMapper.class);
+public class MatrixBridgeNames {
 
-    private static String WUP_VERSION = "1.0.0";
+    public String getInteractEgressMatrixEventsName(){
+        return("matrix-actions");
+    }
 
+    public String getInteractEgressSynapseActionsName(){
+        return("synapse-api");
+    }
+
+    public String getInteractEgressMatrixQueryClientAPIName(){
+        return("matrix-query");
+    }
+
+    public String getInteractIngressMatrixEventsName(){
+        return("matrix-events");
+    }
 }
