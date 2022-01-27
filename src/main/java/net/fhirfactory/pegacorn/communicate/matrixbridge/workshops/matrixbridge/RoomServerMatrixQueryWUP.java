@@ -65,4 +65,9 @@ public class RoomServerMatrixQueryWUP extends MatrixClientServerAPIProxyWUP {
     protected List<DataParcelManifest> declarePublishedTopics() {
         return (new ArrayList<>());
     }
+
+    @Override
+    protected String specifyParticipantDisplayName() {
+        return ("MatrixQueryAPI");
+    }
 }
