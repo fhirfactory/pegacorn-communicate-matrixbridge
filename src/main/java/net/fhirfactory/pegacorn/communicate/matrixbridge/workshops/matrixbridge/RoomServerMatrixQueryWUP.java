@@ -23,7 +23,7 @@ package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.matrixbridge
 
 import net.fhirfactory.pegacorn.communicate.matrixbridge.common.MatrixBridgeNames;
 import net.fhirfactory.pegacorn.communicate.matrix.issi.query.MatrixClientServerAPIProxyWUP;
-import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
+import net.fhirfactory.pegacorn.core.model.petasos.dataparcel.DataParcelManifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
