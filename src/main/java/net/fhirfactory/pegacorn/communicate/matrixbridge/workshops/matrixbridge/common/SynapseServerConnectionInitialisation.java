@@ -27,12 +27,14 @@ import net.fhirfactory.pegacorn.communicate.matrix.model.r110.api.common.MAPIRes
 import net.fhirfactory.pegacorn.communicate.synapse.credentials.SynapseAdminAccessToken;
 import net.fhirfactory.pegacorn.communicate.synapse.methods.SynapseUserMethods;
 import net.fhirfactory.pegacorn.communicate.synapse.model.SynapseAdminProxyInterface;
+import net.fhirfactory.pegacorn.communicate.synapse.model.SynapseUser;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.List;
 
 @ApplicationScoped
 public class SynapseServerConnectionInitialisation {
@@ -60,24 +62,51 @@ public class SynapseServerConnectionInitialisation {
 
     public void initialiseConnection(){
         getLogger().debug(".initialiseConnection(): Entry");
-        // 1st, Always check we have an access token
+        // 1st, Establish Synapse Admin Login
+        getLogger().info(".topologyReplicationSynchronisationDaemon(): [Synapse Login] Start...");
+        if(StringUtils.isEmpty(getSynapseAccessToken().getSessionAccessToken())){
+            getLogger().info(".topologyReplicationSynchronisationDaemon(): [Synapse Login] Session Token is Empty, Logging In...");
+            getSynapseAdminProxy().executeLogin();
+        } else {
+            getLogger().error(".topologyReplicationSynchronisationDaemon(): [Synapse Login] Session Token was already populated...");
+        }
+        getLogger().info(".topologyReplicationSynchronisationDaemon(): [Synapse Login] Finish...");
+
+        // 2nd, Override any rate-limiting for our synapse user
+        getLogger().info(".topologyReplicationSynchronisationDaemon(): [Synapse User Rate Limit Override] Start...");
+        synapseUserAPI.overrideRateLimit(synapseAccessToken.getUserId(), 0,0);
+        getLogger().info(".topologyReplicationSynchronisationDaemon(): [Synapse User Rate Limit Override] Finish...");
+
+        // 3rd, Register Application Service User (if not already registered) and/or login
+        getLogger().info(".topologyReplicationSynchronisationDaemon(): [Matrix Login] Start...");
         if (StringUtils.isEmpty(getMatrixAccessToken().getSessionAccessToken())) {
-            getLogger().info(".topologyReplicationSynchronisationDaemon(): [Matrix Login] Start...");
-            MAPIResponse mapiResponse = getMatrixApplicationServiceMethods().registerApplicationService();
-            if(mapiResponse.getResponseCode() != 200){
+            getLogger().info(".topologyReplicationSynchronisationDaemon(): [Matrix Login] Session Token is Empty, Logging In");
+            getLogger().info(".topologyReplicationSynchronisationDaemon(): [Matrix Login] First Checking to see if User Exists");
+            List<SynapseUser> usersByNameList = synapseUserAPI.getUsersByName(getMatrixApplicationServiceMethods().getMatrixApplicationServiceName());
+            boolean isAlreadyRegistered = false;
+            for(SynapseUser currentUser: usersByNameList){
+                if(currentUser.getName().contains(getMatrixApplicationServiceMethods().getMatrixApplicationServiceName())){
+                    getLogger().info(".topologyReplicationSynchronisationDaemon(): [Matrix Login] User ({}) Exists", currentUser.getName());
+                    isAlreadyRegistered = true;
+                }
+            }
+            if(!isAlreadyRegistered) {
+                getLogger().info(".topologyReplicationSynchronisationDaemon(): [Matrix Login] User does not Exist, so Registering");
+                MAPIResponse mapiResponse = getMatrixApplicationServiceMethods().registerApplicationService();
+            } else {
+                getLogger().info(".topologyReplicationSynchronisationDaemon(): [Matrix Login] User Exists, so Logging in");
                 getMatrixApplicationServiceMethods().loginApplicationService();
             }
-//            getMatrixApplicationServiceMethods().setApplicationServiceDisplayName("ITOps-Agent");
-//            getLogger().info(".topologyReplicationSynchronisationDaemon(): [Matrix Login] Finish...");
         }
-        if(StringUtils.isEmpty(getSynapseAccessToken().getSessionAccessToken())){
-            getLogger().info(".topologyReplicationSynchronisationDaemon(): [Synapse Login] Start...");
-            getSynapseAdminProxy().executeLogin();
-            getLogger().info(".topologyReplicationSynchronisationDaemon(): [Synapse Login] Start...");
-        }
-        synapseUserAPI.overrideRateLimit(synapseAccessToken.getUserId(), 0,0);
-        synapseUserAPI.overrideRateLimit(matrixAccessToken.getUserId(), 0, 0);
         getLogger().info(".topologyReplicationSynchronisationDaemon(): [Matrix Login] Finish...");
+
+        // 4th, Override any rate-limiting for our matrix application service
+        getLogger().info(".topologyReplicationSynchronisationDaemon(): [Matrix User Rate Limit Override] Start...");
+        synapseUserAPI.overrideRateLimit(matrixAccessToken.getUserId(), 0, 0);
+        getLogger().info(".topologyReplicationSynchronisationDaemon(): [Matrix User Rate Limit Override] Finish...");
+
+        getLogger().info(".topologyReplicationSynchronisationDaemon(): [Matrix Login] Finish...");
+
         getLogger().debug(".initialiseConnection(): Exit");
     }
 

@@ -22,7 +22,7 @@
 package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event.communicate;
 
 import net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event.common.MatrixBridgeActivityWUPBase;
-import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
+import net.fhirfactory.pegacorn.core.model.petasos.dataparcel.DataParcelManifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
