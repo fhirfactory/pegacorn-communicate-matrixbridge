@@ -19,15 +19,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.interact;
+package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.matrixbridge;
 
-import net.fhirfactory.pegacorn.communicate.matrixbridge.common.CommunicateMatrixBridgeNames;
-import net.fhirfactory.pegacorn.communicate.synapse.interact.SynapseAPIProxyWUP;
+import net.fhirfactory.pegacorn.communicate.matrixbridge.common.MatrixBridgeNames;
+import net.fhirfactory.pegacorn.communicate.synapse.issi.SynapseAPIProxyWUP;
+import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 @ApplicationScoped
 public class RoomServerSynapseActionsWUP extends SynapseAPIProxyWUP{
@@ -36,7 +39,7 @@ public class RoomServerSynapseActionsWUP extends SynapseAPIProxyWUP{
     private static String WUP_VERSION="1.0.0";
 
     @Inject
-    private CommunicateMatrixBridgeNames names;
+    private MatrixBridgeNames names;
 
     @Override
     protected Logger specifyLogger() {
@@ -55,7 +58,11 @@ public class RoomServerSynapseActionsWUP extends SynapseAPIProxyWUP{
 
     @Override
     protected String specifyEgressTopologyEndpointName() {
-        return (names.getInteractEgressSynapseAPIName());
+        return (names.getInteractEgressSynapseActionsName());
     }
 
+    @Override
+    protected List<DataParcelManifest> declarePublishedTopics() {
+        return (new ArrayList<>());
+    }
 }

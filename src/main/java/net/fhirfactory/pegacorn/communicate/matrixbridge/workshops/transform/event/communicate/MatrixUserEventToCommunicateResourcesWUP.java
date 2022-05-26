@@ -19,19 +19,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event;
+package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event.communicate;
 
 import net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event.common.MatrixBridgeActivityWUPBase;
-import net.fhirfactory.pegacorn.components.dataparcel.DataParcelManifest;
+import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
-public class MatrixRoomEventToCommunicateResourcesWUP extends MatrixBridgeActivityWUPBase {
-    private static final Logger LOG = LoggerFactory.getLogger(MatrixRoomEventToCommunicateResourcesWUP.class);
+public class MatrixUserEventToCommunicateResourcesWUP extends MatrixBridgeActivityWUPBase {
+    private static final Logger LOG = LoggerFactory.getLogger(MatrixUserEventToCommunicateResourcesWUP.class);
 
     private static String WUP_VERSION = "1.0.0";
 
@@ -42,7 +43,12 @@ public class MatrixRoomEventToCommunicateResourcesWUP extends MatrixBridgeActivi
 
     @Override
     protected List<DataParcelManifest> specifySubscriptionTopics() {
-        return null;
+        getLogger().debug(".specifySubscriptionTopics(): Entry");
+
+        List<DataParcelManifest> subscriptionList = new ArrayList<>();
+
+        getLogger().debug(".specifySubscriptionTopics(): Exit");
+        return(subscriptionList);
     }
 
     @Override
@@ -53,5 +59,10 @@ public class MatrixRoomEventToCommunicateResourcesWUP extends MatrixBridgeActivi
     @Override
     public void configure() throws Exception {
 
+    }
+
+    @Override
+    protected List<DataParcelManifest> declarePublishedTopics() {
+        return new ArrayList<>();
     }
 }

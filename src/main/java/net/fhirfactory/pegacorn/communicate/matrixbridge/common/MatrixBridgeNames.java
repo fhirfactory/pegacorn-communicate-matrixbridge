@@ -19,39 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event;
-
-import net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event.common.MatrixBridgeActivityWUPBase;
-import net.fhirfactory.pegacorn.components.dataparcel.DataParcelManifest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package net.fhirfactory.pegacorn.communicate.matrixbridge.common;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.util.List;
 
 @ApplicationScoped
-public class MatrixUserEventToCommunicateResourcesWUP extends MatrixBridgeActivityWUPBase {
-    private static final Logger LOG = LoggerFactory.getLogger(MatrixUserEventToCommunicateResourcesWUP.class);
+public class MatrixBridgeNames {
 
-    private static String WUP_VERSION = "1.0.0";
-
-    @Override
-    protected Logger specifyLogger() {
-        return (LOG);
+    public String getInteractEgressMatrixEventsName(){
+        return("matrix-actions");
     }
 
-    @Override
-    protected List<DataParcelManifest> specifySubscriptionTopics() {
-        return null;
+    public String getInteractEgressSynapseActionsName(){
+        return("synapse-api");
     }
 
-    @Override
-    protected String specifyWUPInstanceVersion() {
-        return (WUP_VERSION);
+    public String getInteractEgressMatrixQueryClientAPIName(){
+        return("matrix-query");
     }
 
-    @Override
-    public void configure() throws Exception {
-
+    public String getInteractIngressMatrixEventsName(){
+        return("matrix-events");
     }
 }

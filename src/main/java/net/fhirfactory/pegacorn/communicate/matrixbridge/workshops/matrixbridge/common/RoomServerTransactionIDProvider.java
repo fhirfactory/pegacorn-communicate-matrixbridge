@@ -19,35 +19,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.api;
-
-import net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.beans.CommunicatePractitionerMatrixMapper;
-import net.fhirfactory.pegacorn.internals.communicate.entities.practitioner.CommunicatePractitioner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.matrixbridge.common;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import java.util.UUID;
 
 @ApplicationScoped
-public class CommunicatePractitionerMatrixAPI {
-    private static final Logger LOG = LoggerFactory.getLogger(CommunicatePractitionerMatrixAPI.class);
+public class RoomServerTransactionIDProvider {
+    private Object transactionIDLock;
+    private Long transactionID;
 
-    @Inject
-    private CommunicatePractitionerMatrixMapper practitionerMapper;
-
-    public CommunicatePractitioner installCommunicatePractitioner(CommunicatePractitioner communicatePractitioner){
-
-        return(communicatePractitioner);
+    public RoomServerTransactionIDProvider(){
+        this.transactionIDLock = new Object();
+        this.transactionID = 0L;
     }
 
-    public CommunicatePractitioner removeCommunicatePractitioner(CommunicatePractitioner communicatePractitioner){
-
-        return(communicatePractitioner);
-    }
-
-    public CommunicatePractitioner updateCommunicatePractitioner(CommunicatePractitioner communicatePractitioner){
-
-        return(communicatePractitioner);
+    public String getNextAvailableID(){
+        synchronized (this.transactionIDLock){
+            Long nextValue = this.transactionID + 1;
+            this.transactionID += 1;
+            String nextValueAsString = Long.toString(nextValue);
+            return(nextValueAsString);
+        }
     }
 }

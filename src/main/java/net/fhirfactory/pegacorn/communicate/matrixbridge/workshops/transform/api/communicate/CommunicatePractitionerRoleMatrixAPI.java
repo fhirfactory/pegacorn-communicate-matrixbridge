@@ -19,27 +19,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.interact.common;
+package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.api.communicate;
+
+import net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.beans.CommunicatePractitionerRoleMatrixMapper;
+import net.fhirfactory.pegacorn.internals.communicate.entities.practitionerrole.CommunicatePractitionerRole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.util.UUID;
+import javax.inject.Inject;
 
 @ApplicationScoped
-public class RoomServerTransactionIDProvider {
-    private Object transactionIDLock;
-    private Long transactionID;
+public class CommunicatePractitionerRoleMatrixAPI {
+    private static final Logger LOG = LoggerFactory.getLogger(CommunicatePractitionerRoleMatrixAPI.class);
 
-    public RoomServerTransactionIDProvider(){
-        this.transactionIDLock = new Object();
-        this.transactionID = UUID.randomUUID().getLeastSignificantBits();
+    @Inject
+    private CommunicatePractitionerRoleMatrixMapper practitionerMapper;
+
+    public CommunicatePractitionerRole installCommunicatePractitionerRole(CommunicatePractitionerRole communicatePractitionerRole){
+
+        return(communicatePractitionerRole);
     }
 
-    public String getNextAvailableID(){
-        synchronized (this.transactionIDLock){
-            Long nextValue = this.transactionID + 1;
-            this.transactionID += 1;
-            String nextValueAsString = Long.toString(nextValue);
-            return(nextValueAsString);
-        }
+    public CommunicatePractitionerRole removeCommunicatePractitionerRole(CommunicatePractitionerRole communicatePractitionerRole){
+
+        return(communicatePractitionerRole);
+    }
+
+    public CommunicatePractitionerRole updateCommunicatePractitionerRole(CommunicatePractitionerRole communicatePractitionerRole){
+
+        return(communicatePractitionerRole);
     }
 }
