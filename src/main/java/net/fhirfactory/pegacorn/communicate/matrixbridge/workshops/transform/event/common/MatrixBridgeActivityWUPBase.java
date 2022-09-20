@@ -22,9 +22,9 @@
 package net.fhirfactory.pegacorn.communicate.matrixbridge.workshops.transform.event.common;
 
 
-import net.fhirfactory.pegacorn.core.interfaces.topology.WorkshopInterface;
-import net.fhirfactory.pegacorn.workshops.TransformWorkshop;
-import net.fhirfactory.pegacorn.wups.archetypes.petasosenabled.messageprocessingbased.MOAStandardWUP;
+import net.fhirfactory.dricats.interfaces.topology.WorkshopInterface;
+import net.fhirfactory.dricats.petasos.participant.workshops.TransformWorkshop;
+import net.fhirfactory.dricats.petasos.participant.wup.messagebased.MOAStandardWUP;
 
 import javax.inject.Inject;
 

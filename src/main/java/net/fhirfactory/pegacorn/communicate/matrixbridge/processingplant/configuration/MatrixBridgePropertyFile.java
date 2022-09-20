@@ -1,6 +1,6 @@
 package net.fhirfactory.pegacorn.communicate.matrixbridge.processingplant.configuration;
 
-import net.fhirfactory.pegacorn.deployment.properties.configurationfilebased.common.archetypes.PetasosEnabledSubsystemPropertyFile;
+import net.fhirfactory.pegacorn.deployment.properties.configurationfilebased.archetypes.PetasosEnabledSubsystemPropertyFile;
 import net.fhirfactory.pegacorn.deployment.properties.configurationfilebased.common.segments.ports.http.ClusteredHTTPServerPortSegment;
 import net.fhirfactory.pegacorn.deployment.properties.configurationfilebased.common.segments.ports.http.HTTPClientPortSegment;
 
